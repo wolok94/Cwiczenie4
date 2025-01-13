@@ -1,6 +1,8 @@
-﻿namespace Ćwiczenie4_KamilWolak.Interfaces
+﻿
+namespace Ćwiczenie4_KamilWolak.Interfaces
 {
     public interface ICurrencyService
     {
+        Task GetCurrencies();
     }
 }
