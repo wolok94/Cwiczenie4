@@ -1,4 +1,5 @@
-﻿using Ćwiczenie4_KamilWolak.Entities;
+﻿using Ćwiczenie4_KamilWolak.Dtos;
+using Ćwiczenie4_KamilWolak.Entities;
 using Ćwiczenie4_KamilWolak.Interfaces;
 using System.Text.Json;
 
@@ -8,7 +9,7 @@ public class CurrencyService : ICurrencyService
 {
 
 
-    public async Task GetCurrencies()
+    public async Task<IEnumerable<CurrencyDto>> GetCurrencies()
     {
         using var httpClient = new HttpClient();
 
@@ -17,8 +18,7 @@ public class CurrencyService : ICurrencyService
 
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
 
-        try
-        {
+
             var httpResponse = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));
 
             httpResponse.EnsureSuccessStatusCode();
@@ -31,8 +31,12 @@ public class CurrencyService : ICurrencyService
                 WriteIndented = true
             };
             var rates = JsonSerializer.Deserialize<List<ExchangeTable>>(responseBody, options);
-        }catch(Exception ex){
-            Console.WriteLine(ex.Message);
-        }
+            var mappedRates = rates.SelectMany(x => x.Rates.Select(c =>  new CurrencyDto
+            {
+                Name = c.Currency
+            })).ToList();
+
+            return mappedRates;
+
     }
 }
