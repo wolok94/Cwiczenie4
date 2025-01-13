@@ -1,0 +1,90 @@
+# Dotnet build artifacts
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.user
+*.csproj.user
+*.suo
+
+# Rider/VSCode/Visual Studio files
+.idea/
+.vscode/
+*.sln.docstates
+*.sln.cache
+.vs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.old
+
+# NuGet Packages
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Publish artifacts
+publish/
+*.Publish.xml
+
+# Logs
+*.log
+logs/
+logfile.*
+*.tlog
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Other
+*.dbmdl
+*.jfm
+*.ide
+
+# Compiled output
+dist/
+out-tsc/
+
+# Logs and debugging
+*.log
+logs/
+
+# Dependency directories
+node_modules/
+
+# Angular specific
+.angular/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
+
+# NPM/Yarn related
+package-lock.json
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temp files
+.tmp/
+*.tmp
+
+# Coverage files
+coverage/
+
+# Environment files
+src/environments/environment*.ts
