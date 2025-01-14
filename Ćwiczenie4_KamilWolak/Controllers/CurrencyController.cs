@@ -1,9 +1,12 @@
-﻿using Ćwiczenie4_KamilWolak.Interfaces;
+﻿using Ćwiczenie4_KamilWolak.Dtos;
+using Ćwiczenie4_KamilWolak.Entities;
+using Ćwiczenie4_KamilWolak.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ćwiczenie4_KamilWolak.Controllers
 {
     [ApiController]
+    [Route("currencies")]
     public class CurrencyController : Controller
     {
         private readonly ICurrencyService _currencyService;
@@ -13,10 +16,26 @@ namespace Ćwiczenie4_KamilWolak.Controllers
             _currencyService = currencyService;
         }
         [HttpGet]
-        [Route("currencies")]
-        public async Task Currencies()
+        public async Task<ActionResult<IEnumerable<CurrencyDto>>> Currencies()
         {
-            await _currencyService.GetCurrencies();
+            var currencies = await _currencyService.GetCurrencies();
+            return Ok(currencies);
+        }
+
+        [HttpGet]
+        [Route("{date}")]
+        public async Task<ActionResult<List<ExchangeTable>>> CurrenciesByDate([FromRoute] string date)
+        {
+            var currencies = await _currencyService.GetCurrenciesByDate(date);
+            return Ok(currencies);
+        }
+
+        [HttpPost]
+        [Route("fetch")]
+        public async Task<IActionResult> SaveCurrencies([FromBody] string date)
+        {
+            await _currencyService.AddCurrencies(date);
+            return Ok();
         }
     }
 }

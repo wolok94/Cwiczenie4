@@ -1,5 +1,9 @@
-using Æwiczenie4_KamilWolak.Interfaces;
-using Æwiczenie4_KamilWolak.Services;
+
+
+using Ä†wiczenie4_KamilWolak.DbConnection;
+using Ä†wiczenie4_KamilWolak.Interfaces;
+using Ä†wiczenie4_KamilWolak.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<CurrencyDbContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("CurrencyConnectionString"));
+});
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 var app = builder.Build();
