@@ -7,5 +7,6 @@ namespace Ćwiczenie4_KamilWolak.Interfaces
     public interface ICurrencyService
     {
         Task<IEnumerable<CurrencyDto>> GetCurrencies();
+        Task<List<ExchangeTable>> GetCurrenciesByDate(string date);
     }
 }
