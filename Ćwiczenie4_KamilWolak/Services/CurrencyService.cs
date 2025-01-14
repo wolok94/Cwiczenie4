@@ -2,12 +2,18 @@
 using Ćwiczenie4_KamilWolak.Entities;
 using Ćwiczenie4_KamilWolak.Interfaces;
 using System.Text.Json;
+using Ćwiczenie4_KamilWolak.DbConnection;
 
 namespace Ćwiczenie4_KamilWolak.Services;
 
 public class CurrencyService : ICurrencyService
 {
+    private readonly CurrencyDbContext _dbContext;
 
+    public CurrencyService(CurrencyDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public async Task<IEnumerable<CurrencyDto>> GetCurrencies()
     {
@@ -58,4 +64,6 @@ public class CurrencyService : ICurrencyService
 
         return rates;
     }
+    
+    
 }
