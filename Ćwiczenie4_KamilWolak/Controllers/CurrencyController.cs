@@ -29,5 +29,13 @@ namespace Ćwiczenie4_KamilWolak.Controllers
             var currencies = await _currencyService.GetCurrenciesByDate(date);
             return Ok(currencies);
         }
+
+        [HttpPost]
+        [Route("fetch")]
+        public async Task<IActionResult> SaveCurrencies([FromBody] string date)
+        {
+            await _currencyService.AddCurrencies(date);
+            return Ok();
+        }
     }
 }

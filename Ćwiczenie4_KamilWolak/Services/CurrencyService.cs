@@ -64,6 +64,13 @@ public class CurrencyService : ICurrencyService
 
         return rates;
     }
+
+    public async Task AddCurrencies(string date)
+    {
+        var currencies = await GetCurrenciesByDate(date);
+        await _dbContext.ExchangeTables.AddRangeAsync(currencies);
+        await _dbContext.SaveChangesAsync();
+    }
     
     
 }

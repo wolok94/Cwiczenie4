@@ -8,5 +8,6 @@ namespace Ćwiczenie4_KamilWolak.Interfaces
     {
         Task<IEnumerable<CurrencyDto>> GetCurrencies();
         Task<List<ExchangeTable>> GetCurrenciesByDate(string date);
+        Task AddCurrencies(string date);
     }
 }
