@@ -23,18 +23,18 @@ namespace Ćwiczenie4_KamilWolak.Controllers
         }
 
         [HttpGet]
-        [Route("{date}")]
-        public async Task<ActionResult<List<ExchangeTable>>> CurrenciesByDate([FromRoute] string date)
+        [Route("{startDate}/{endDate}")]
+        public async Task<ActionResult<List<ExchangeTable>>> CurrenciesByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate)
         {
-            var currencies = await _currencyService.GetCurrenciesByDate(date);
+            var currencies = await _currencyService.GetCurrenciesByDate(startDate, endDate);
             return Ok(currencies);
         }
 
         [HttpPost]
         [Route("fetch")]
-        public async Task<IActionResult> SaveCurrencies([FromBody] string date)
+        public async Task<IActionResult> SaveCurrencies([FromBody] FetchCurrenciesDto dto)
         {
-            await _currencyService.AddCurrencies(date);
+            await _currencyService.AddCurrencies(dto.StartDate, dto.EndDate);
             return Ok();
         }
     }
