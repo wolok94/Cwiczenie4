@@ -44,11 +44,11 @@ public class CurrencyService : ICurrencyService
 
     }
 
-    public async Task<List<ExchangeTable>> GetCurrenciesByDate(string date)
+    public async Task<List<ExchangeTable>> GetCurrenciesByDate(DateTime startDate, DateTime endDate)
     {
         using var httpClient = new HttpClient();
 
-        var url = $"https://api.nbp.pl/api/exchangerates/tables/A/{date}/?format=json";
+        var url = $"https://api.nbp.pl/api/exchangerates/tables/A/{startDate:yyyy-MM-dd}/{endDate:yyyy-MM-dd}/?format=json";
         
         
         var httpResponse = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url));
@@ -65,9 +65,24 @@ public class CurrencyService : ICurrencyService
         return rates;
     }
 
-    public async Task AddCurrencies(string date)
+    public async Task AddCurrencies(DateTime startDate, DateTime endDate)
     {
-        var currencies = await GetCurrenciesByDate(date);
+        var timeBetween = endDate - startDate;
+        List<ExchangeTable> currencies = new List<ExchangeTable>();
+        if (timeBetween.TotalDays > 93)
+        {
+            
+
+            while (startDate < endDate)
+            {
+                var currentEndDate = startDate.AddDays(93) < endDate ? startDate.AddDays(93) : endDate;
+                
+                var downloadedCurrencies = await GetCurrenciesByDate(startDate, currentEndDate);
+                currencies.AddRange(downloadedCurrencies);
+                
+                startDate = currentEndDate;
+            }
+        }
         await _dbContext.ExchangeTables.AddRangeAsync(currencies);
         await _dbContext.SaveChangesAsync();
     }

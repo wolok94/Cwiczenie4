@@ -7,7 +7,7 @@ namespace Ćwiczenie4_KamilWolak.Interfaces
     public interface ICurrencyService
     {
         Task<IEnumerable<CurrencyDto>> GetCurrencies();
-        Task<List<ExchangeTable>> GetCurrenciesByDate(string date);
-        Task AddCurrencies(string date);
+        Task<List<ExchangeTable>> GetCurrenciesByDate(DateTime startDate, DateTime endDate);
+        Task AddCurrencies(DateTime startDate, DateTime endDate);
     }
 }
