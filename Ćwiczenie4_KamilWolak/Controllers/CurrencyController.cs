@@ -24,9 +24,9 @@ namespace Ćwiczenie4_KamilWolak.Controllers
 
         [HttpGet]
         [Route("{startDate}/{endDate}")]
-        public async Task<ActionResult<List<ExchangeTable>>> CurrenciesByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate)
+        public async Task<ActionResult<List<ExchangeTable>>> CurrenciesByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate, [FromQuery] PaginationFilterDto paginationFilter)
         {
-            var currencies = await _currencyService.GetCurrenciesByDate(startDate, endDate);
+            var currencies = await _currencyService.GetCurrenciesByDate(startDate, endDate, paginationFilter);
             return Ok(currencies);
         }
 

@@ -23,8 +23,7 @@ namespace Ćwiczenie4_KamilWolak.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EffectiveDate")
-                        .IsRequired()
+                    b.Property<DateTime>("EffectiveDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("No")
@@ -54,7 +53,7 @@ namespace Ćwiczenie4_KamilWolak.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ExchangeTableId")
+                    b.Property<Guid>("ExchangeTableId")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Mid")
@@ -69,9 +68,13 @@ namespace Ćwiczenie4_KamilWolak.Migrations
 
             modelBuilder.Entity("Ćwiczenie4_KamilWolak.Entities.Rate", b =>
                 {
-                    b.HasOne("Ćwiczenie4_KamilWolak.Entities.ExchangeTable", null)
+                    b.HasOne("Ćwiczenie4_KamilWolak.Entities.ExchangeTable", "ExchangeTable")
                         .WithMany("Rates")
-                        .HasForeignKey("ExchangeTableId");
+                        .HasForeignKey("ExchangeTableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExchangeTable");
                 });
 
             modelBuilder.Entity("Ćwiczenie4_KamilWolak.Entities.ExchangeTable", b =>

@@ -17,6 +17,7 @@ public class CurrencyDbContext : DbContext
     {
         modelBuilder.Entity<ExchangeTable>()
             .HasMany(x => x.Rates)
-            .WithOne();
+            .WithOne(x => x.ExchangeTable)
+            .HasForeignKey(x => x.ExchangeTableId);
     }
 }

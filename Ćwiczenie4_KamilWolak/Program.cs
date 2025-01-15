@@ -1,5 +1,6 @@
 
 
+using System.Text.Json.Serialization;
 using Ćwiczenie4_KamilWolak.DbConnection;
 using Ćwiczenie4_KamilWolak.Interfaces;
 using Ćwiczenie4_KamilWolak.Services;
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers().AddJsonOptions(option =>
+    option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddDbContext<CurrencyDbContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("CurrencyConnectionString"));
