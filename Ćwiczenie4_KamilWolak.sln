@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ćwiczenie4_KamilWolak.Api"
 		{F88B9DBA-1C9B-45F9-895C-A092882376E4} = {F88B9DBA-1C9B-45F9-895C-A092882376E4}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ćwiczenie4_KamilWolak.UnitTests", "Ćwiczenie4_KamilWolak.UnitTests\Ćwiczenie4_KamilWolak.UnitTests.csproj", "{12143D60-49BD-4E4F-8D7A-9665C145FA3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ćwiczenie4_KamilWolak.Tests", "Ćwiczenie4_KamilWolak.Tests\Ćwiczenie4_KamilWolak.Tests.csproj", "{12143D60-49BD-4E4F-8D7A-9665C145FA3D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F} = {B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}
 	EndProjectSection

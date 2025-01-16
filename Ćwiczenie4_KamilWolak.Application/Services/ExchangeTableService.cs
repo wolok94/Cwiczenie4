@@ -36,7 +36,7 @@ public class ExchangeTableService : IExchangeTableService
         await _exchangeTableRepository.AddRange(currencies);
     }
     
-    private async Task<List<ExchangeTable>> GetExchangeTablesByDateFromApi(DateTime startDate, DateTime endDate)
+    private async Task<IEnumerable<ExchangeTable>> GetExchangeTablesByDateFromApi(DateTime startDate, DateTime endDate)
     {
         using var httpClient = new HttpClient();
 
@@ -54,6 +54,15 @@ public class ExchangeTableService : IExchangeTableService
         };
         var rates = JsonSerializer.Deserialize<List<ExchangeTable>>(responseBody, options);
 
-        return rates;
+        var ratesWithNormalizedTime = rates.Select(x => new ExchangeTable
+        {
+            Id = x.Id,
+            No = x.No,
+            Rates = x.Rates,
+            Table = x.Table,
+            EffectiveDate = x.EffectiveDate.ToUniversalTime()
+        });
+
+        return ratesWithNormalizedTime;
     }
 }
