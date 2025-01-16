@@ -1,9 +1,6 @@
 
 
 using System.Text.Json.Serialization;
-using Ćwiczenie4_KamilWolak.DbConnection;
-using Ćwiczenie4_KamilWolak.Interfaces;
-using Ćwiczenie4_KamilWolak.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,0 +1,6 @@
+@Ćwiczenie4_KamilWolak.Api_HostAddress = http://localhost:5259
+
+GET {{Ćwiczenie4_KamilWolak.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
