@@ -9,7 +9,7 @@ public class PaginationFilterDto
 
     }
 
-    public PaginationFilterDto(int pageNumber, int pageSize, string? searchPhrase)
+    public PaginationFilterDto(int pageNumber, int pageSize)
     {
         this.PageNumber = pageNumber < 0 ? 0 : pageNumber;
         this.PageSize = pageSize < 1 ? 1 : pageSize;

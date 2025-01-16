@@ -20,6 +20,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ćwiczenie4_KamilWolak.Api"
 		{F88B9DBA-1C9B-45F9-895C-A092882376E4} = {F88B9DBA-1C9B-45F9-895C-A092882376E4}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ćwiczenie4_KamilWolak.UnitTests", "Ćwiczenie4_KamilWolak.UnitTests\Ćwiczenie4_KamilWolak.UnitTests.csproj", "{12143D60-49BD-4E4F-8D7A-9665C145FA3D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F} = {B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +47,10 @@ Global
 		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

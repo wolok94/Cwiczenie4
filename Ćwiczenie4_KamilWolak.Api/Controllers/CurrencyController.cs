@@ -17,16 +17,26 @@ namespace Ćwiczenie4_KamilWolak.Api.Controllers
             _currencyService = currencyService;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurrencyDto>>> Currencies()
+        public async Task<IActionResult> Currencies()
         {
             var currencies = await _currencyService.GetCurrencies();
+
+            if (currencies == null)
+            {
+                return NotFound();
+            }
+            
             return Ok(currencies);
         }
 
         [HttpGet]
         [Route("{startDate}/{endDate}")]
-        public async Task<ActionResult<List<ExchangeTable>>> CurrenciesByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate, [FromQuery] PaginationFilterDto paginationFilter)
+        public async Task<IActionResult> CurrenciesByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate, [FromQuery] PaginationFilterDto paginationFilter)
         {
+            if (endDate < startDate)
+            {
+                return BadRequest();
+            }
             var currencies = await _currencyService.GetCurrenciesByDate(startDate, endDate, paginationFilter);
             return Ok(currencies);
         }
@@ -35,6 +45,10 @@ namespace Ćwiczenie4_KamilWolak.Api.Controllers
         [Route("fetch")]
         public async Task<IActionResult> SaveCurrencies([FromBody] FetchCurrenciesDto dto)
         {
+            if (dto.EndDate < dto.StartDate)
+            {
+                return BadRequest();
+            }
             await _currencyService.AddCurrencies(dto.StartDate, dto.EndDate);
             return Ok();
         }
