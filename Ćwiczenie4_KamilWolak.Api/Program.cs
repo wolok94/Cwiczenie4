@@ -1,6 +1,9 @@
-
-
 using System.Text.Json.Serialization;
+using Ćwiczenie4_KamilWolak.Application.Interfaces;
+using Ćwiczenie4_KamilWolak.Application.Services;
+using Ćwiczenie4_KamilWolak.Domain.Interfaces;
+using Ćwiczenie4_KamilWolak.Infrastructure.DbConnection;
+using Ćwiczenie4_KamilWolak.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +18,13 @@ builder.Services.AddControllers().AddJsonOptions(option =>
     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddDbContext<CurrencyDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("CurrencyConnectionString"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("CurrencyConnectionString"));
 });
+builder.Services.AddScoped<IRateRepository, RateRepository>();  
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddScoped<IExchangeTableService, ExchangeTableService>();
+builder.Services.AddScoped<IExchangeTableRepository, ExchangeTableRepository>();
+
 
 var app = builder.Build();
 
