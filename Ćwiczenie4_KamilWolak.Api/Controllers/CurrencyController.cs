@@ -11,10 +11,12 @@ namespace Ćwiczenie4_KamilWolak.Api.Controllers
     public class CurrencyController : Controller
     {
         private readonly ICurrencyService _currencyService;
+        private readonly IExchangeTableService _exchangeTableService;
 
-        public CurrencyController(ICurrencyService currencyService)
+        public CurrencyController(ICurrencyService currencyService, IExchangeTableService exchangeTableService)
         {
             _currencyService = currencyService;
+            _exchangeTableService = exchangeTableService;
         }
         [HttpGet]
         public async Task<IActionResult> Currencies()
@@ -49,7 +51,7 @@ namespace Ćwiczenie4_KamilWolak.Api.Controllers
             {
                 return BadRequest();
             }
-            await _currencyService.AddCurrencies(dto.StartDate, dto.EndDate);
+            await _exchangeTableService.AddExchangeTables(dto.StartDate, dto.EndDate);
             return Ok();
         }
     }

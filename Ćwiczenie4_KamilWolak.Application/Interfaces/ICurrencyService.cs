@@ -6,6 +6,6 @@ namespace Ćwiczenie4_KamilWolak.Application.Interfaces
     {
         Task<IEnumerable<CurrencyDto>> GetCurrencies();
         Task<PaginationDto<GetCurrenciesDto>> GetCurrenciesByDate(DateTime startDate, DateTime endDate, PaginationFilterDto paginationFilter);
-        Task AddCurrencies(DateTime startDate, DateTime endDate);
+
     }
 }

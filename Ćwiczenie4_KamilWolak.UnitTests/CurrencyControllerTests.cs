@@ -10,12 +10,15 @@ namespace Ćwiczenie4_KamilWolak.UnitTests;
 
 public class CurrencyControllerTests
 {
-    private readonly Mock<ICurrencyService> _mockedService;
+    private readonly Mock<ICurrencyService> _currencyService;
+    private readonly Mock<IExchangeTableService> _exchangeTableService;
 
 
     public CurrencyControllerTests()
     {
-        _mockedService = new Mock<ICurrencyService>();
+        _currencyService = new Mock<ICurrencyService>();
+        _exchangeTableService = new Mock<IExchangeTableService>();
+        
     }
 
     [Fact]
@@ -23,7 +26,7 @@ public class CurrencyControllerTests
     {
 
 
-        _mockedService.Setup(x => x.GetCurrencies()).ReturnsAsync(new List<CurrencyDto>()
+        _currencyService.Setup(x => x.GetCurrencies()).ReturnsAsync(new List<CurrencyDto>()
         {
             new CurrencyDto()
             {
@@ -31,7 +34,7 @@ public class CurrencyControllerTests
             }
         });
 
-        var controller = new CurrencyController(_mockedService.Object);
+        var controller = new CurrencyController(_currencyService.Object, _exchangeTableService.Object);
         var result = await controller.Currencies();
         
         Assert.IsType<OkObjectResult>(result);
@@ -43,9 +46,9 @@ public class CurrencyControllerTests
     {
 
 
-        _mockedService.Setup(x => x.GetCurrencies()).ReturnsAsync(null as IEnumerable<CurrencyDto>);
+        _currencyService.Setup(x => x.GetCurrencies()).ReturnsAsync(null as IEnumerable<CurrencyDto>);
 
-        var controller = new CurrencyController(_mockedService.Object);
+        var controller = new CurrencyController(_currencyService.Object, _exchangeTableService.Object);
         var result = await controller.Currencies();
         
         Assert.IsType<NotFoundResult>(result);
@@ -69,10 +72,10 @@ public class CurrencyControllerTests
             }
         };
         var pagination = new PaginationDto<GetCurrenciesDto>(getCurrenciesDtos, paginationFilter.PageSize, paginationFilter.PageNumber, getCurrenciesDtos.Count);
-        _mockedService.Setup(x => x.GetCurrenciesByDate(startDate, endDate, paginationFilter))
+        _currencyService.Setup(x => x.GetCurrenciesByDate(startDate, endDate, paginationFilter))
             .ReturnsAsync(pagination);
         
-        var controller = new CurrencyController(_mockedService.Object);
+        var controller = new CurrencyController(_currencyService.Object, _exchangeTableService.Object);
         var result = await controller.CurrenciesByDate(startDate, endDate, paginationFilter);
         
         Assert.IsType<OkObjectResult>(result);
@@ -95,10 +98,10 @@ public class CurrencyControllerTests
             }
         };
         var pagination = new PaginationDto<GetCurrenciesDto>(getCurrenciesDtos, paginationFilter.PageSize, paginationFilter.PageNumber, getCurrenciesDtos.Count);
-        _mockedService.Setup(x => x.GetCurrenciesByDate(startDate, endDate, paginationFilter))
+        _currencyService.Setup(x => x.GetCurrenciesByDate(startDate, endDate, paginationFilter))
             .ReturnsAsync(pagination);
         
-        var controller = new CurrencyController(_mockedService.Object);
+        var controller = new CurrencyController(_currencyService.Object, _exchangeTableService.Object);
         var result = await controller.CurrenciesByDate(startDate, endDate, paginationFilter);
         
         Assert.IsType<BadRequestResult>(result);
@@ -114,9 +117,9 @@ public class CurrencyControllerTests
             StartDate = startDate,
             EndDate = endDate,
         };
-        _mockedService.Setup(x => x.AddCurrencies(startDate, endDate)).Returns(Task.CompletedTask);
+        _exchangeTableService.Setup(x => x.AddExchangeTables(startDate, endDate)).Returns(Task.CompletedTask);
         
-        var controller = new CurrencyController(_mockedService.Object);
+        var controller = new CurrencyController(_currencyService.Object, _exchangeTableService.Object);
         var result = await controller.SaveCurrencies(fetchCurrenciesDto);
         
         Assert.IsType<OkResult>(result);
@@ -132,9 +135,9 @@ public class CurrencyControllerTests
             StartDate = startDate,
             EndDate = endDate,
         };
-        _mockedService.Setup(x => x.AddCurrencies(startDate, endDate)).Returns(Task.CompletedTask);
+        _exchangeTableService.Setup(x => x.AddExchangeTables(startDate, endDate)).Returns(Task.CompletedTask);
         
-        var controller = new CurrencyController(_mockedService.Object);
+        var controller = new CurrencyController(_currencyService.Object, _exchangeTableService.Object);
         var result = await controller.SaveCurrencies(fetchCurrenciesDto);
         
         Assert.IsType<BadRequestResult>(result);
