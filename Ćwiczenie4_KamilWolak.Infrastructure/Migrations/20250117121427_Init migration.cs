@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Ćwiczenie4_KamilWolak.Migrations
+namespace Ćwiczenie4_KamilWolak.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class Initmigration : Migration
@@ -15,10 +15,10 @@ namespace Ćwiczenie4_KamilWolak.Migrations
                 name: "ExchangeTables",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Table = table.Column<string>(type: "TEXT", nullable: false),
-                    No = table.Column<string>(type: "TEXT", nullable: false),
-                    EffectiveDate = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Table = table.Column<string>(type: "text", nullable: false),
+                    No = table.Column<string>(type: "text", nullable: false),
+                    EffectiveDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,11 +29,11 @@ namespace Ćwiczenie4_KamilWolak.Migrations
                 name: "Rates",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Currency = table.Column<string>(type: "TEXT", nullable: false),
-                    Code = table.Column<string>(type: "TEXT", nullable: false),
-                    Mid = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ExchangeTableId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Currency = table.Column<string>(type: "text", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    Mid = table.Column<decimal>(type: "numeric", nullable: false),
+                    ExchangeTableId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +42,8 @@ namespace Ćwiczenie4_KamilWolak.Migrations
                         name: "FK_Rates_ExchangeTables_ExchangeTableId",
                         column: x => x.ExchangeTableId,
                         principalTable: "ExchangeTables",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -60,7 +60,7 @@ public class CurrencyControllerUnitTests
     {
         var startDate = new DateTime(2024, 12, 1);
         var endDate = new DateTime(2025, 01, 16);
-        var paginationFilter = new PaginationFilterDto(2, 10);
+        var paginationFilter = new PaginationFilterDto(2, 10, null);
         var getCurrenciesDtos = new List<GetCurrenciesDto>()
         {
             new GetCurrenciesDto()
@@ -86,7 +86,7 @@ public class CurrencyControllerUnitTests
     {
         var startDate = new DateTime(2024, 02, 1);
         var endDate = new DateTime(2024, 01, 31);
-        var paginationFilter = new PaginationFilterDto(2, 10);
+        var paginationFilter = new PaginationFilterDto(2, 10, null);
         var getCurrenciesDtos = new List<GetCurrenciesDto>()
         {
             new GetCurrenciesDto()

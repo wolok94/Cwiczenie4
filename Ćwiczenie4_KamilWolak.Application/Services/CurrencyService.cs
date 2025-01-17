@@ -29,6 +29,13 @@ public class CurrencyService : ICurrencyService
     public async Task<PaginationDto<GetCurrenciesDto>> GetCurrenciesByDate(DateTime startDate, DateTime endDate, PaginationFilterDto paginationFilter)
     {
         var basicCurrencies = await _rateRepository.GetCurrenciesByDate(startDate, endDate, paginationFilter);
+
+        if (paginationFilter.SearchPhrase != null)
+        {
+            basicCurrencies = basicCurrencies.Where(x => x.Currency.Contains(paginationFilter.SearchPhrase) ||
+                                                         x.Code.Contains(paginationFilter.SearchPhrase) ||
+                                                         x.EffectiveDate.ToString().Contains(paginationFilter.SearchPhrase));
+        }
         
         var currencies = basicCurrencies
             .Skip((paginationFilter.PageNumber - 1) * paginationFilter.PageSize)

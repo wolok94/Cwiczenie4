@@ -32,8 +32,8 @@ public class RateRepository : GenericRepository<Rate>, IRateRepository
     {
         var currencies = await _dbContext.Rates
             .Include(x => x.ExchangeTable)
-            .Where(x => x.ExchangeTable.EffectiveDate >= startDate
-                        && x.ExchangeTable.EffectiveDate <= endDate)
+            .Where(x => x.ExchangeTable.EffectiveDate >= startDate.ToUniversalTime()
+                        && x.ExchangeTable.EffectiveDate <= endDate.ToUniversalTime())
             .Select(x => new GetCurrenciesDto
             {
                 Id = x.Id,

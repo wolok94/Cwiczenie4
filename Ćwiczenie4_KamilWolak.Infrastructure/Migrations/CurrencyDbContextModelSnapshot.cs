@@ -3,11 +3,12 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Ćwiczenie4_KamilWolak.Infrastructure.DbConnection;
 
 #nullable disable
 
-namespace Ćwiczenie4_KamilWolak.Migrations
+namespace Ćwiczenie4_KamilWolak.Infrastructure.Migrations
 {
     [DbContext(typeof(CurrencyDbContext))]
     partial class CurrencyDbContextModelSnapshot : ModelSnapshot
@@ -15,49 +16,53 @@ namespace Ćwiczenie4_KamilWolak.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Entities.ExchangeTable", b =>
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Domain.Entities.ExchangeTable", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("EffectiveDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("No")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Table")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("ExchangeTables");
                 });
 
-            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Entities.Rate", b =>
+            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Domain.Entities.Rate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("ExchangeTableId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Mid")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -66,9 +71,9 @@ namespace Ćwiczenie4_KamilWolak.Migrations
                     b.ToTable("Rates");
                 });
 
-            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Entities.Rate", b =>
+            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Domain.Entities.Rate", b =>
                 {
-                    b.HasOne("Ćwiczenie4_KamilWolak.Entities.ExchangeTable", "ExchangeTable")
+                    b.HasOne("Ćwiczenie4_KamilWolak.Domain.Entities.ExchangeTable", "ExchangeTable")
                         .WithMany("Rates")
                         .HasForeignKey("ExchangeTableId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -77,7 +82,7 @@ namespace Ćwiczenie4_KamilWolak.Migrations
                     b.Navigation("ExchangeTable");
                 });
 
-            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Entities.ExchangeTable", b =>
+            modelBuilder.Entity("Ćwiczenie4_KamilWolak.Domain.Entities.ExchangeTable", b =>
                 {
                     b.Navigation("Rates");
                 });
