@@ -1,1 +1,36 @@
-<p>currency-app works!</p>
+<div class="container mt-4">
+    <h1 class="text-center">Kursy walut</h1>
+  
+    <div class="row">
+
+      <div class="col-md-6">
+        <label for="startDate" class="form-label">Data początkowa:</label>
+        <input
+          type="date"
+          id="startDate"
+          class="form-control"
+          [(ngModel)]="currencyFilterParams.startDate"
+        />
+      </div>
+  
+
+      <div class="col-md-6">
+        <label for="endDate" class="form-label">Data końcowa:</label>
+        <input
+          type="date"
+          id="endDate"
+          class="form-control"
+          [(ngModel)]="currencyFilterParams.endDate"
+        />
+      </div>
+    </div>
+  
+    <button class="btn btn-primary my-3" (click)="loadCurrencies()">Załaduj waluty</button>
+  
+    <div *ngIf="currencies.length > 0">
+        <app-currency-table
+        [currencies]="currencies"></app-currency-table>
+    </div>
+
+  </div>
+  

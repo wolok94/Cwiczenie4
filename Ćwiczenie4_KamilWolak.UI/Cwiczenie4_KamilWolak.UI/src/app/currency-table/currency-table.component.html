@@ -1,1 +1,19 @@
-<p>currency-table works!</p>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nazwa</th>
+        <th>Kod</th>
+        <th>Kurs</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let currency of currencies">
+        <td>{{ currency.currency }}</td>
+        <td>{{ currency.code }}</td>
+        <td>{{ currency.mid }}</td>
+        <td>{{ currency.effectiveDate | date }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
