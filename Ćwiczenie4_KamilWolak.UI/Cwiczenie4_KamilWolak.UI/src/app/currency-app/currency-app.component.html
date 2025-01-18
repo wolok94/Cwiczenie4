@@ -1,36 +1,61 @@
 <div class="container mt-4">
-    <h1 class="text-center">Kursy walut</h1>
-  
-    <div class="row">
+  <h1 class="text-center">Kursy walut</h1>
 
-      <div class="col-md-6">
-        <label for="startDate" class="form-label">Data początkowa:</label>
-        <input
-          type="date"
-          id="startDate"
-          class="form-control"
-          [(ngModel)]="currencyFilterParams.startDate"
-        />
-      </div>
-  
-
-      <div class="col-md-6">
-        <label for="endDate" class="form-label">Data końcowa:</label>
-        <input
-          type="date"
-          id="endDate"
-          class="form-control"
-          [(ngModel)]="currencyFilterParams.endDate"
-        />
-      </div>
-    </div>
-  
-    <button class="btn btn-primary my-3" (click)="loadCurrencies()">Załaduj waluty</button>
-  
-    <div *ngIf="currencies.length > 0">
-        <app-currency-table
-        [currencies]="currencies"></app-currency-table>
+  <div class="row">
+    <div class="col-md-4">
+      <label for="currencySelect" class="form-label">Wybierz walutę:</label>
+      <select
+        id="currencySelect"
+        class="form-select"
+        [(ngModel)]="currencyFilterParams.searchPhrase"
+      >
+        <option *ngFor="let currency of currenciesNames" [value]="currency.name">
+          {{ currency.name }}
+        </option>
+      </select>
     </div>
 
+    <div class="col-md-4">
+      <label for="startDate" class="form-label">Data początkowa:</label>
+      <input
+        type="date"
+        id="startDate"
+        class="form-control"
+        [(ngModel)]="currencyFilterParams.startDate"
+      />
+    </div>
+
+    <div class="col-md-4">
+      <label for="endDate" class="form-label">Data końcowa:</label>
+      <input
+        type="date"
+        id="endDate"
+        class="form-control"
+        [(ngModel)]="currencyFilterParams.endDate"
+      />
+    </div>
   </div>
-  
+
+  <button class="btn btn-primary my-3" (click)="loadCurrenciesTable()">Załaduj waluty</button>
+
+  <div *ngIf="currencies.length > 0">
+
+    <ngx-charts-line-chart 
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="chartModel"
+  [legend]="showLegend"
+  [animations]="animations"
+  [xAxis]="true"
+  [yAxis]="true"
+  [autoScale]="true"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [xAxisLabel]="'Data'"
+  [yAxisLabel]="'Wartość'">
+</ngx-charts-line-chart >
+
+      <app-currency-table
+      [currencies]="currencies"></app-currency-table>
+  </div>
+</div>

@@ -4,7 +4,8 @@ import { CurrencyAppComponent } from "./currency-app/currency-app.component";
 
 @Component({
   selector: 'app-root',
-  imports: [ CurrencyAppComponent],
+  standalone: true,
+  imports: [CurrencyAppComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

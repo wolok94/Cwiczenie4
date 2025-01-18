@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CurrencyFilterParams } from '../models/currencyFilterParams-model';
 import { Observable } from 'rxjs';
 import { Currency } from '../models/currency-model';
+import { CurrencyName } from '../models/currencyName-model';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
@@ -10,7 +11,7 @@ import { environment } from '../../environments/environment.development';
 })
 export class CurrencyService {
 
-  private apiUrl : string = environment.apiUrl + "currencies"
+  private apiUrl : string = environment.apiUrl + "/currencies"
 
   constructor(private httpClient: HttpClient) { }
   
@@ -23,5 +24,9 @@ export class CurrencyService {
     params = params.set('SearchPhrase', currencyFilterParams.searchPhrase);
   }
     return this.httpClient.get<Currency[]>(this.apiUrl + `/${currencyFilterParams.startDate}/${currencyFilterParams.endDate}`, {params})
+  }
+
+  getCurrencies(): Observable<CurrencyName[]>{
+    return this.httpClient.get<CurrencyName[]>(this.apiUrl);
   }
 }

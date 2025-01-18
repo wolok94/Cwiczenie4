@@ -4,6 +4,7 @@ using Ćwiczenie4_KamilWolak.Application.Services;
 using Ćwiczenie4_KamilWolak.Domain.Interfaces;
 using Ćwiczenie4_KamilWolak.Infrastructure.DbConnection;
 using Ćwiczenie4_KamilWolak.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,10 +25,15 @@ builder.Services.AddScoped<IRateRepository, RateRepository>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddScoped<IExchangeTableService, ExchangeTableService>();
 builder.Services.AddScoped<IExchangeTableRepository, ExchangeTableRepository>();
-
+builder.Services.AddCors(x => x.AddPolicy("AllowLocalHost", policy =>
+{
+    policy.WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+}));
 
 var app = builder.Build();
-
+app.UseCors("AllowLocalHost");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
