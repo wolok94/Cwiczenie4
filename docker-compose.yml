@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./Cwiczenie4_KamilWolak.UI  # Ustawiamy kontekst na folder UI, gdzie znajduje się Dockerfile
+      dockerfile: ./Cwiczenie4_KamilWolak.UI/Dockerfile  # Określamy, że Dockerfile znajduje się w tym folderze
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./  # Katalog nadrzędny, w którym znajduje się Dockerfile
+      dockerfile: Dockerfile.backend  # Określamy nazwę Dockerfile (jeśli różni się od domyślnej)
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=test123
+      - DB_NAME=Currencies
+    ports:
+      - "5000:80"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test123
+      - POSTGRES_DB=Currencies
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

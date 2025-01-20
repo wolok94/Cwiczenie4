@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cwiczenie4_KamilWolak.Domain", "Cwiczenie4_KamilWolak.Domain\Cwiczenie4_KamilWolak.Domain.csproj", "{4454F9DA-2981-458A-B2BA-6ABEDA35BB3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cwiczenie4_KamilWolak.Infrastructure", "Cwiczenie4_KamilWolak.Infrastructure\Cwiczenie4_KamilWolak.Infrastructure.csproj", "{0EF79F0A-09F8-41AD-8257-85AFF204097B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4454F9DA-2981-458A-B2BA-6ABEDA35BB3A} = {4454F9DA-2981-458A-B2BA-6ABEDA35BB3A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cwiczenie4_KamilWolak.Application", "Cwiczenie4_KamilWolak.Application\Cwiczenie4_KamilWolak.Application.csproj", "{F88B9DBA-1C9B-45F9-895C-A092882376E4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0EF79F0A-09F8-41AD-8257-85AFF204097B} = {0EF79F0A-09F8-41AD-8257-85AFF204097B}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cwiczenie4_KamilWolak.Api", "Cwiczenie4_KamilWolak.Api\Cwiczenie4_KamilWolak.Api.csproj", "{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F88B9DBA-1C9B-45F9-895C-A092882376E4} = {F88B9DBA-1C9B-45F9-895C-A092882376E4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cwiczenie4_KamilWolak.Tests", "Cwiczenie4_KamilWolak.Tests\Cwiczenie4_KamilWolak.Tests.csproj", "{12143D60-49BD-4E4F-8D7A-9665C145FA3D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F} = {B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4454F9DA-2981-458A-B2BA-6ABEDA35BB3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4454F9DA-2981-458A-B2BA-6ABEDA35BB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4454F9DA-2981-458A-B2BA-6ABEDA35BB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4454F9DA-2981-458A-B2BA-6ABEDA35BB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EF79F0A-09F8-41AD-8257-85AFF204097B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EF79F0A-09F8-41AD-8257-85AFF204097B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EF79F0A-09F8-41AD-8257-85AFF204097B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EF79F0A-09F8-41AD-8257-85AFF204097B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F88B9DBA-1C9B-45F9-895C-A092882376E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88B9DBA-1C9B-45F9-895C-A092882376E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88B9DBA-1C9B-45F9-895C-A092882376E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88B9DBA-1C9B-45F9-895C-A092882376E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6BFA37F-4B19-402C-9AB9-35C71C6EDE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12143D60-49BD-4E4F-8D7A-9665C145FA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

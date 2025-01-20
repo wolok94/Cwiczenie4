@@ -1,0 +1,35 @@
+# Etap budowania
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+# Kopiujemy pliki projektu (wszystkie projekty backendowe)
+COPY ./Cwiczenie4_KamilWolak.Api/*.csproj ./Cwiczenie4_KamilWolak.Api/
+COPY ./Cwiczenie4_KamilWolak.Application/*.csproj ./Cwiczenie4_KamilWolak.Application/
+COPY ./Cwiczenie4_KamilWolak.Infrastructure/*.csproj ./Cwiczenie4_KamilWolak.Infrastructure/
+COPY ./Cwiczenie4_KamilWolak.Domain/*.csproj ./Cwiczenie4_KamilWolak.Domain/
+
+# Przywracamy zależności
+RUN dotnet restore ./Cwiczenie4_KamilWolak.Api/Cwiczenie4_KamilWolak.Api.csproj
+
+
+# Kopiujemy resztę aplikacji
+COPY ./Cwiczenie4_KamilWolak.Api/. ./Cwiczenie4_KamilWolak.Api/
+COPY ./Cwiczenie4_KamilWolak.Application/. ./Cwiczenie4_KamilWolak.Application/
+COPY ./Cwiczenie4_KamilWolak.Infrastructure/. ./Cwiczenie4_KamilWolak.Infrastructure/
+COPY ./Cwiczenie4_KamilWolak.Domain/. ./Cwiczenie4_KamilWolak.Domain/
+
+
+
+# Budujemy aplikację
+RUN dotnet publish ./Cwiczenie4_KamilWolak.Api/Cwiczenie4_KamilWolak.Api.csproj -c Release -o /app
+
+# Etap uruchamiania (runtime)
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+# Kopiujemy pliki publikacji
+COPY --from=build /app ./ 
+
+# Uruchamiamy aplikację
+ENTRYPOINT ["dotnet", "Cwiczenie4_KamilWolak.Api.dll"]
