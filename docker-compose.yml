@@ -1,14 +1,12 @@
-version: '3.8'
-
 services:
   frontend:
     build:
       context: ./Cwiczenie4_KamilWolak.UI  # Ustawiamy kontekst na folder UI, gdzie znajduje się Dockerfile
-      dockerfile: ./Cwiczenie4_KamilWolak.UI/Dockerfile  # Określamy, że Dockerfile znajduje się w tym folderze
+      dockerfile: ./Cwiczenie4_KamilWolak.UI/Dockerfile  # Plik Dockerfile w katalogu kontekstowym
     ports:
       - "4200:80"
     depends_on:
-      - backend
+      - backend  # Usunięcie condition, uruchomi się po backendzie, ale nie sprawdzi jego gotowości
     networks:
       - app-network
 
@@ -24,11 +22,18 @@ services:
       - DB_PASSWORD=test123
       - DB_NAME=Currencies
     ports:
-      - "5000:80"
+      - "5000:8080"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   postgres:
     image: postgres:16
@@ -42,6 +47,11 @@ services:
       - app-network
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   app-network:

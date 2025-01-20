@@ -27,7 +27,7 @@ builder.Services.AddScoped<IExchangeTableService, ExchangeTableService>();
 builder.Services.AddScoped<IExchangeTableRepository, ExchangeTableRepository>();
 builder.Services.AddCors(x => x.AddPolicy("AllowLocalHost", policy =>
 {
-    policy.WithOrigins("http://localhost:4200")
+    policy.AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod();
 }));
