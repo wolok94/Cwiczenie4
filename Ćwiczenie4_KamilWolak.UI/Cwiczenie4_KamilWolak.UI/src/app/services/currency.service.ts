@@ -5,6 +5,7 @@ import { Currency } from '../models/currency-model';
 import { CurrencyName } from '../models/currencyName-model';
 import { environment } from '../../environments/environment.development';
 import { Injectable } from '@angular/core';
+import { FetchCurrencies } from '../models/fetchCurrencies-model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class CurrencyService {
     return this.httpClient.get<CurrencyName[]>(this.apiUrl);
   }
 
-  loadDatabase(): Observable<void>{
-    return this.httpClient.get<void>(this.apiUrl + "/fetch");
+  loadDatabase(fetchCurrencies : FetchCurrencies): Observable<void>{
+    return this.httpClient.post<void>(this.apiUrl + "/fetch", fetchCurrencies);
   }
 }

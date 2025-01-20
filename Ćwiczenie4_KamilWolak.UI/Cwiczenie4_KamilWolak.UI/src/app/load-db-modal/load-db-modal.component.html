@@ -8,17 +8,18 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="startDate" class="form-label">Data początkowa</label>
-            <input type="date" id="startDate" class="form-control" [(ngModel)]="startDate" />
+            <input type="date" id="startDate" class="form-control" [(ngModel)]="fetchCurrencies.startDate" />
           </div>
           <div class="mb-3">
             <label for="endDate" class="form-label">Data końcowa</label>
-            <input type="date" id="endDate" class="form-control" [(ngModel)]="endDate" />
+            <input type="date" id="endDate" class="form-control" [(ngModel)]="fetchCurrencies.endDate" />
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
           <button type="button" class="btn btn-primary" (click)="loadData()">Załaduj</button>
         </div>
+
       </div>
     </div>
   </div>

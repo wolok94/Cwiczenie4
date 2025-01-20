@@ -1,2 +1,5 @@
-<app-currency-app></app-currency-app>
+<router-outlet></router-outlet>
+<div *ngIf="isLoading">
+    <app-loading-modal></app-loading-modal>
+</div>
 <app-message></app-message>

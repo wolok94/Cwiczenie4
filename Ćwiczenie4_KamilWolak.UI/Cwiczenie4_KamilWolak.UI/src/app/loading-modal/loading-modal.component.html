@@ -1,0 +1,16 @@
+<div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{'show': isLoading}" [style.display]="isLoading ? 'block' : 'none'" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen d-flex justify-content-center align-items-center" role="document">
+      <div class="modal-content text-center w-100">
+        <div class="modal-body">
+          <!-- Kręcące się kółko na środku -->
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border text-light" role="status">
+            </div>
+          </div>
+          <!-- Tekst poniżej spinnera -->
+          <p class="text-light mt-3">Ładowanie...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -4,6 +4,9 @@ import { LoadDbModalComponent } from "./load-db-modal/load-db-modal.component";
 
 
 export const routes: Routes = [
-    { path: "", component: CurrencyAppComponent },
-    {path: "loadDatabase", component: LoadDbModalComponent}
+    {
+        path: "", component: CurrencyAppComponent, children: [
+            {path: "loadDatabase", component: LoadDbModalComponent}
+    ]},
+    
 ];

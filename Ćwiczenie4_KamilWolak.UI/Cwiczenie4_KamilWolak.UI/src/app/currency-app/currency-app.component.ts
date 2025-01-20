@@ -9,6 +9,7 @@ import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { ChartModel } from '../models/chart-model';
 import { Component } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
+import { LoadingService } from "../services/loading.service";
 
 @Component({
   standalone: true,
