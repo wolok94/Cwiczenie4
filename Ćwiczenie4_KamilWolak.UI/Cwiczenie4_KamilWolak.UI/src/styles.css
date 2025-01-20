@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+.message {
+    position: fixed; 
+    bottom: 20px; 
+    left: 20px; 
+    width: auto;
+    max-width: 300px; 
+    z-index: 1050; 
+
+  }

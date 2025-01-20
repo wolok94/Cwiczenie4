@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { CurrencyFilterParams } from '../models/currencyFilterParams-model';
 import { Observable } from 'rxjs';
 import { Currency } from '../models/currency-model';
 import { CurrencyName } from '../models/currencyName-model';
 import { environment } from '../../environments/environment.development';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,9 @@ export class CurrencyService {
 
   getCurrencies(): Observable<CurrencyName[]>{
     return this.httpClient.get<CurrencyName[]>(this.apiUrl);
+  }
+
+  loadDatabase(): Observable<void>{
+    return this.httpClient.get<void>(this.apiUrl + "/fetch");
   }
 }

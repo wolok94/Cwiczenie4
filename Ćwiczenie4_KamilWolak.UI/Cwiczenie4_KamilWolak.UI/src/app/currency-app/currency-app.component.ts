@@ -1,4 +1,3 @@
-import { Component, NgModule } from '@angular/core';
 import { CurrencyTableComponent } from "../currency-table/currency-table.component";
 import { FormsModule, NgModel } from '@angular/forms';
 import { Currency } from '../models/currency-model';
@@ -8,11 +7,13 @@ import { CurrencyService } from '../services/currency.service';
 import { CurrencyName } from '../models/currencyName-model';
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { ChartModel } from '../models/chart-model';
+import { Component } from "@angular/core";
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
   standalone: true,
   selector: 'app-currency-app',
-  imports: [CurrencyTableComponent, FormsModule, CommonModule, NgxChartsModule],
+  imports: [CurrencyTableComponent, FormsModule, CommonModule, NgxChartsModule, RouterModule],
   templateUrl: './currency-app.component.html',
   styleUrl: './currency-app.component.css',
   
@@ -35,7 +36,7 @@ export class CurrencyAppComponent {
   animations: boolean = true;
 
 
-  constructor(private currencyService : CurrencyService) {
+  constructor(private currencyService : CurrencyService, private router : Router) {
     
   }
 
@@ -63,10 +64,10 @@ export class CurrencyAppComponent {
       console.log(this.currencies);
       this.chartModel = [
         {
-          name: this.currencies[0].currency, // Nazwa waluty
+          name: this.currencies[0].currency, 
           series: this.currencies.map((currency: Currency) => ({
-            name: currency.effectiveDate, // Data
-            value: currency.mid // Wartość
+            name: currency.effectiveDate,
+            value: currency.mid 
           }))
         }];
         console.log(this.chartModel);
@@ -78,5 +79,9 @@ export class CurrencyAppComponent {
       let currencies = JSON.parse(JSON.stringify(res));
       this.currenciesNames = currencies;
     })
+  }
+
+  loadDatabase() {
+    this.router.navigate(['/loadDatabase'])
   }
 }

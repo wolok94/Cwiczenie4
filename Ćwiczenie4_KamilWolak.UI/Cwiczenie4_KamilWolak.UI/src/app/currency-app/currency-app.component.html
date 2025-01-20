@@ -36,7 +36,12 @@
     </div>
   </div>
 
-  <button class="btn btn-primary my-3" (click)="loadCurrenciesTable()">Załaduj waluty</button>
+  <div class="d-flex gap-3 my-3">
+    <button class="btn btn-primary" (click)="loadCurrenciesTable()">Załaduj waluty</button>
+    <button class="btn btn-secondary" (click)="loadDatabase()">Załaduj bazę danych</button>
+  </div>
+
+  <router-outlet></router-outlet>
 
   <div *ngIf="currencies.length > 0">
 

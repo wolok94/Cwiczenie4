@@ -1,0 +1,6 @@
+<div *ngIf="message && type=='success'" class="alert alert-success message"  role="alert">
+    {{ message }}
+  </div>
+<div *ngIf="message && type === 'error'" class="alert alert-danger message" role="alert">
+  {{ message }}
+</div>
