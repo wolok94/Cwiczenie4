@@ -6,6 +6,7 @@ import { CurrencyName } from '../models/currencyName-model';
 import { environment } from '../../environments/environment.development';
 import { Injectable } from '@angular/core';
 import { FetchCurrencies } from '../models/fetchCurrencies-model';
+import { Pagination } from '../models/pagination-model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CurrencyService {
 
   constructor(private httpClient: HttpClient) { }
   
-  getCurrenciesByDate(currencyFilterParams: CurrencyFilterParams): Observable<Currency[]> {
+  getCurrenciesByDate(currencyFilterParams: CurrencyFilterParams): Observable<Pagination<Currency>> {
     let params = new HttpParams()
     .set('PageNumber', currencyFilterParams.pageNumber.toString())
     .set('PageSize', currencyFilterParams.pageSize.toString());
@@ -24,7 +25,7 @@ export class CurrencyService {
   if (currencyFilterParams.searchPhrase) {
     params = params.set('SearchPhrase', currencyFilterParams.searchPhrase);
   }
-    return this.httpClient.get<Currency[]>(this.apiUrl + `/${currencyFilterParams.startDate}/${currencyFilterParams.endDate}`, {params})
+    return this.httpClient.get<Pagination<Currency>>(this.apiUrl + `/${currencyFilterParams.startDate}/${currencyFilterParams.endDate}`, {params})
   }
 
   getCurrencies(): Observable<CurrencyName[]>{

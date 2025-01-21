@@ -57,10 +57,83 @@
   [showXAxisLabel]="true"
   [showYAxisLabel]="true"
   [xAxisLabel]="'Data'"
-  [yAxisLabel]="'Wartość'">
+  [yAxisLabel]="'Wartość'"
+  [rotateXAxisTicks]="true">
 </ngx-charts-line-chart >
 
       <app-currency-table
       [currencies]="currencies"></app-currency-table>
-  </div>
+
+      <div class="container my-3">
+        <div class="row align-items-center">
+          
+
+          <div class="col-auto">
+            <label for="pageSizeSelect" class="me-2">Pokaż:</label>
+            <select id="pageSizeSelect" class="form-select d-inline w-auto" [(ngModel)]="currencyFilterParams.pageSize" (change)="changePageSize()">
+              <option [disabled]="pagination.totalItemsCount < 10" [value]="10">10</option>
+              <option [disabled]="pagination.totalItemsCount < 50" [value]="50">50</option>
+              <option [disabled]="pagination.totalItemsCount < 100" [value]="100">100</option>
+              <option [disabled]="pagination.totalItemsCount < currencyFilterParams.pageSize" [value]="pagination.totalItemsCount">Wszystkie</option>
+            </select>
+          </div>
+      
+
+          <div class="col text-center">
+            <nav>
+              <ul class="pagination mb-0 justify-content-center">
+      
+
+                <li *ngIf="currencyFilterParams.pageNumber >= 3" class="page-item" [class.disabled]="currencyFilterParams.pageNumber === 1">
+                  <button class="page-link" (click)="changePage(1)">1</button>
+                </li>
+      
+
+                <li *ngIf="currencyFilterParams.pageNumber > 3" class="page-item disabled">
+                  <span class="page-link">...</span>
+                </li>
+      
+
+                <li *ngIf="currencyFilterParams.pageNumber > 1" class="page-item">
+                  <button class="page-link" (click)="changePage(currencyFilterParams.pageNumber - 1)">
+                    {{ currencyFilterParams.pageNumber - 1 }}
+                  </button>
+                </li>
+      
+
+                <li class="page-item active">
+                  <span class="page-link">{{ currencyFilterParams.pageNumber }}</span>
+                </li>
+      
+
+                <li *ngIf="currencyFilterParams.pageNumber < pagination.totalPages" class="page-item">
+                  <button class="page-link" (click)="changePage(currencyFilterParams.pageNumber + 1)">
+                    {{ currencyFilterParams.pageNumber + 1 }}
+                  </button>
+                </li>
+      
+
+                <li *ngIf="currencyFilterParams.pageNumber < pagination.totalPages - 2" class="page-item disabled">
+                  <span class="page-link">...</span>
+                </li>
+      
+
+                <li *ngIf="currencyFilterParams.pageNumber <= pagination.totalPages - 3" class="page-item" [class.disabled]="currencyFilterParams.pageNumber === pagination.totalPages">
+                  <button class="page-link" (click)="changePage(pagination.totalPages)">
+                    {{ pagination.totalPages }}
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+      
+        </div>
+      </div>
+      
+        </div>
+        
+        
+        
+
+  
 </div>

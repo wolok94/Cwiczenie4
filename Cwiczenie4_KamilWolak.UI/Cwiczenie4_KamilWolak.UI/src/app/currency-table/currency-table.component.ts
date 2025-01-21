@@ -7,7 +7,7 @@ import { Currency } from '../models/currency-model';
 @Component({
   standalone: true,
   selector: 'app-currency-table',
-  imports: [DatePipe, CommonModule],
+  imports: [CommonModule],
   templateUrl: './currency-table.component.html',
   styleUrl: './currency-table.component.css'
 })

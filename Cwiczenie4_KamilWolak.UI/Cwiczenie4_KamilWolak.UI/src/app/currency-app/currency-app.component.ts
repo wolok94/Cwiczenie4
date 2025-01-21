@@ -8,8 +8,9 @@ import { CurrencyName } from '../models/currencyName-model';
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { ChartModel } from '../models/chart-model';
 import { Component } from "@angular/core";
-import { Router, RouterModule } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
 import { LoadingService } from "../services/loading.service";
+import { Pagination } from "../models/pagination-model";
 
 @Component({
   standalone: true,
@@ -21,7 +22,7 @@ import { LoadingService } from "../services/loading.service";
 })
 export class CurrencyAppComponent {
 
-  view: [number, number] = [700, 400]; 
+  view: [number, number] = [window.innerWidth * 0.7 , 400]; 
 
   colorScheme: Color = {
     name: 'custom',
@@ -37,13 +38,14 @@ export class CurrencyAppComponent {
   animations: boolean = true;
 
 
-  constructor(private currencyService : CurrencyService, private router : Router) {
+  constructor(private currencyService : CurrencyService, private router : Router, private route: ActivatedRoute) {
     
   }
 
   currencies: Currency[] = [];
   currenciesNames: CurrencyName[] = [];
-  chartModel : ChartModel[] = [];
+  chartModel: ChartModel[] = [];
+  pagination!: Pagination<Currency>;
 
   currencyFilterParams: CurrencyFilterParams = {
     startDate: new Date().toISOString().split('T')[0],
@@ -55,19 +57,27 @@ export class CurrencyAppComponent {
 
   ngOnInit(): void {
     this.loadCurrencies();
-    this.loadCurrenciesTable();
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.loadCurrencies();
+      }
+    });
+
   }
 
   loadCurrenciesTable() {
     this.currencyService.getCurrenciesByDate(this.currencyFilterParams).subscribe(res => {
       let currencies = JSON.parse(JSON.stringify(res));
       this.currencies = currencies.items;
+      this.pagination = currencies;
+      console.log(this.pagination);
       console.log(this.currencies);
       this.chartModel = [
         {
           name: this.currencies[0].currency, 
           series: this.currencies.map((currency: Currency) => ({
-            name: currency.effectiveDate,
+            name: new Date(currency.effectiveDate).toLocaleDateString('pl-PL'),
             value: currency.mid 
           }))
         }];
@@ -84,5 +94,21 @@ export class CurrencyAppComponent {
 
   loadDatabase() {
     this.router.navigate(['/loadDatabase'])
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.pagination.totalPages) {
+      this.currencyFilterParams.pageNumber = page;
+      this.loadCurrenciesTable();
+    }
+  }
+
+  getPagesArray(totalPages: number): number[] {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  changePageSize() {
+    this.currencyFilterParams.pageNumber = 1;
+    this.loadCurrenciesTable();
   }
 }
