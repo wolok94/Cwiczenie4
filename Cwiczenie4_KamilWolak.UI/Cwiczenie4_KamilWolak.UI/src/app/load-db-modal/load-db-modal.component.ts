@@ -30,8 +30,10 @@ export class LoadDbModalComponent {
 
     const modalElement = document.getElementById('dateModal');
     if (modalElement) {
-      this.modal = new bootstrap.Modal(modalElement);
-      this.modal.show(); 
+      if(typeof bootstrap !== 'undefined') {
+        this.modal = new bootstrap.Modal(modalElement);
+        this.modal.show(); 
+      }
     }
   }
 

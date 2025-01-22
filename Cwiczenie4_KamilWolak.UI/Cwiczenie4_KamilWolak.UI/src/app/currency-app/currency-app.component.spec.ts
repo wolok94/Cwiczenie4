@@ -6,12 +6,27 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CurrencyTableComponent } from '../currency-table/currency-table.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { of } from 'rxjs';
+
+class MockCurrencyService {
+  getCurrencies = jasmine.createSpy('getCurrencies').and.returnValue(of([
+    { name: 'USD' },
+    { name: 'EUR' }
+  ]));
+
+  getCurrenciesByDate = jasmine.createSpy('getCurrenciesByDate').and.returnValue(of({
+    items: [
+      { currency: 'USD', effectiveDate: '2024-01-01', mid: 3.95 },
+      { currency: 'USD', effectiveDate: '2024-01-02', mid: 3.97 }
+    ],
+    totalPages: 2
+  }));
+}
 
 describe('CurrencyAppComponent', () => {
   let component: CurrencyAppComponent;
   let fixture: ComponentFixture<CurrencyAppComponent>;
-  let httpTestingController: HttpTestingController;
+  let currencyService: MockCurrencyService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,38 +39,46 @@ describe('CurrencyAppComponent', () => {
         CurrencyTableComponent
       ],
       providers: [
-        provideHttpClientTesting(),  // Nowoczesny sposób na zapewnienie mocka dla HttpClient
-        CurrencyService
+        { provide: CurrencyService, useClass: MockCurrencyService }
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CurrencyAppComponent);
     component = fixture.componentInstance;
-    httpTestingController = TestBed.inject(HttpTestingController);
+    currencyService = TestBed.inject(CurrencyService) as unknown as MockCurrencyService;
 
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('powinien utworzyć komponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call loadCurrenciesTable when button is clicked', () => {
-    spyOn(component, 'loadCurrenciesTable'); // Szpiegujemy metodę komponentu
+  it('powinien wyświetlić poprawny tytuł', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Kursy walut');
+  });
 
-    // Znalezienie przycisku na podstawie klasy CSS
+  it('powinien wywołać loadCurrenciesTable po kliknięciu przycisku', () => {
+    spyOn(component, 'loadCurrenciesTable');
+
     const button = fixture.nativeElement.querySelector('button.btn-primary');
     expect(button).toBeTruthy();
 
-    // Kliknięcie przycisku
     button.click();
     fixture.detectChanges();
 
-    // Sprawdzenie, czy metoda została wywołana
     expect(component.loadCurrenciesTable).toHaveBeenCalled();
   });
 
-  afterEach(() => {
-    httpTestingController.verify(); // Sprawdzenie, czy nie ma oczekujących żądań HTTP
+  it('powinien wywołać metodę getCurrenciesByDate w CurrencyService', () => {
+    component.loadCurrenciesTable();
+    expect(currencyService.getCurrenciesByDate).toHaveBeenCalled();
+  });
+
+  it('powinien załadować listę walut przy inicjalizacji', () => {
+    expect(currencyService.getCurrencies).toHaveBeenCalled();
+    expect(component.currenciesNames.length).toBeGreaterThan(0);
   });
 });

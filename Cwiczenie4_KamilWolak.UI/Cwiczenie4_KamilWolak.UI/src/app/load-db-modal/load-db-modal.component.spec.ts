@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoadDbModalComponent } from './load-db-modal.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('LoadDbModalComponent', () => {
   let component: LoadDbModalComponent;
@@ -8,7 +10,8 @@ describe('LoadDbModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoadDbModalComponent]
+      imports: [LoadDbModalComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
 
