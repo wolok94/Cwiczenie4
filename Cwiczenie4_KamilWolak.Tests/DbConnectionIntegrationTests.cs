@@ -13,7 +13,7 @@ public class DbConnectionIntegrationTests
     public DbConnectionIntegrationTests()
     {
         var configurationBuilder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory()) // Upewnij się, że wskazuje na katalog z plikiem
+            .SetBasePath(Directory.GetCurrentDirectory()) 
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
         _configuration = configurationBuilder.Build();
 
